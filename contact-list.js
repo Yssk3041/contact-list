@@ -46,7 +46,7 @@ contactos = [
 const mostrarContactos = function (contacto) {
   for (let contacts of contacto.values()) {
     console.log(
-      `Contacto: ${contacts.nombre} ${contacts.apellidos}\nTeléfono: ${contacts.telefono}\nDirección: ${contacts.ubicaciones.direccion} \nCiudad:${contacts.ubicaciones.ciudad}\n --------------`
+      `Contacto: ${contacts.nombre} ${contacts.apellidos}\nTeléfono: ${contacts.telefono}\nDirección: ${contacts.ubicaciones.direccion} \nCiudad: ${contacts.ubicaciones.ciudad}\n --------------`
     );
   }
 };
@@ -69,16 +69,6 @@ function adicionarContacto(nombre, apellido, telefono, ciudad, direccion) {
   mostrarContactos(contactos);
 }
 
-const eliminarContacto = (nombre, apellido) => {
-  for (let contacts of contactos) {
-    if (contacts.nombre == nombre && contacts.apellidos == apellido) {
-      contactos.splice(contacts.id - 1, 1);
-    }
-  }
-  console.log("El Contacto ha sido eliminado \n");
-  mostrarContactos(contactos);
-};
-
 adicionarContacto(
   "Juan",
   "Florez",
@@ -94,6 +84,45 @@ adicionarContacto(
   "Medellín",
   "Cra 18 No. 87 - 98"
 );
-console.log("");
 
-eliminarContacto("Juan Pablo", "Caro");
+const eliminarContacto = (nombre, apellido) => {
+  for (let contacts of contactos) {
+    if (contacts.nombre == nombre && contacts.apellidos == apellido) {
+      contactos.splice(contacts.id - 1, 1);
+    }
+  }
+  console.log("El Contacto ha sido eliminado \n");
+  mostrarContactos(contactos);
+};
+
+const actualizarContacto = (nombre, apellido, telefono, ciudad, direccion) => {
+  for (let contacts of contactos) {
+    if (contacts.nombre == nombre && contacts.apellidos == apellido) {
+      if (telefono != 0 && telefono != contacts.telefono) {
+        contactos[contacts.id - 2].telefono = telefono;
+      }
+      if (ciudad != "" && ciudad != contacts.ubicaciones.ciudad) {
+        contactos[contacts.id - 2].ubicaciones.ciudad = ciudad;
+      }
+      if (direccion != "" && direccion != contacts.ubicaciones.direccion) {
+        contactos[contacts.id - 2].ubicaciones.direccion = direccion;
+      }
+    }
+  }
+  console.log("El Contacto ha sido actualizado\n");
+  mostrarContactos(contactos);
+};
+
+console.log("");
+eliminarContacto("Diana", "Camargo");
+
+console.log("");
+actualizarContacto("Juan", "Florez", 3258876549, "", "");
+
+actualizarContacto(
+  "Juan Pablo",
+  "Caro",
+  3129080808,
+  "Lorica",
+  "Cra 32 No. 12 - 12"
+);
